@@ -35,6 +35,10 @@ devices:
         ipv6_link_local_address: fe80::3/64
         ipv4_address: False
         ipv6_address: False
+      - name: Loopback0
+        ipv6_link_local_address: False
+        ipv4_address: False
+        ipv6_address: 2001:db8:0:41::1/64
     bgp:
       asn: 64496
       router_id: 0.0.1.1
@@ -57,6 +61,10 @@ devices:
         ipv6_link_local_address: fe80::4/64
         ipv4_address: False
         ipv6_address: False
+      - name: Loopback0
+        ipv6_link_local_address: False
+        ipv4_address: False
+        ipv6_address: 2001:db8:0:42::1/64
     bgp:
       asn: 64498
       router_id: 0.0.2.1

@@ -6,7 +6,6 @@ import jinja2
 
 
 def make_config_file(hostname: str, host_info: dict) -> str:
-    print(host_info)
     jinja_environment = jinja2.Environment(loader=jinja2.FileSystemLoader("."))
     jinja_template = jinja_environment.get_template("template.j2")
     raw_config_lines = jinja_template.render(HOSTNAME=hostname, HOST_DICT=host_info)
@@ -85,9 +84,7 @@ def parse_args() -> argparse.Namespace:
 
 if __name__ == "__main__":
     args = parse_args()
-    # password = getpass.getpass(
-    #     "Enter the admin password for console servers and network devices: "
-    # )
-    # print(password)
-    password = "WWTwwt1!"
+    password = getpass.getpass(
+        "Enter the admin password for console servers and network devices: "
+    )
     main(args.yaml_file, password)

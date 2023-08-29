@@ -18,6 +18,7 @@ interface {{ interface.name }}
 router bgp {{ HOST_DICT.bgp.asn }}
   router-id {{ HOST_DICT.bgp.router_id }}
   bgp default ipv6-unicast
+  redistribute connected
   {% for neighbor in HOST_DICT.bgp.neighbors %}
   {% if neighbor.link_local %}
   neighbor {{ neighbor.address}}%{{ neighbor.interface }} remote-as {{ neighbor.remote_asn }}

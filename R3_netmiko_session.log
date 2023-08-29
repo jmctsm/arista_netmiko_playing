@@ -1,10 +1,9 @@
 
-Last login: Tue Aug 29 21:38:42 2023 from 192.168.69.6
+Last login: Tue Aug 29 22:14:45 2023 from 192.168.69.6
 
 R3>
 R3>terminal width 511
 Width set to 511 columns.
-terminal length 0
 R3>terminal length 0
 Pagination disabled.
 R3>
@@ -17,10 +16,15 @@ R3(config)#hostname R3
 R3(config)#interface Ethernet1
 R3(config-if-Et1)#   no switchport
 R3(config-if-Et1)#   ipv6 address fe80::4/64 link-local
-R3(config-if-Et1)#!
-R3(config-if-Et1)#router bgp 64498
+R3(config-if-Et1)#interface Loopback0
+R3(config-if-Lo0)#   no switchport
+% Incomplete command
+R3(config-if-Lo0)#   ipv6 address 2001:db8:0:42::1/64
+R3(config-if-Lo0)#!
+R3(config-if-Lo0)#router bgp 64498
 R3(config-router-bgp)#  router-id 0.0.2.1
 R3(config-router-bgp)#  bgp default ipv6-unicast
+R3(config-router-bgp)#  redistribute connected
 R3(config-router-bgp)#  neighbor fe80::3%Et1 remote-as 64496
 R3(config-router-bgp)#  neighbor fe80::3%Et1 maximum-routes 12000
 R3(config-router-bgp)#  network 2001:db8:0:42::/64

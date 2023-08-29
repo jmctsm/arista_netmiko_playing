@@ -1,5 +1,5 @@
 
-Last login: Tue Aug 29 21:35:09 2023 from 192.168.69.6
+Last login: Tue Aug 29 22:14:43 2023 from 192.168.69.6
 
 R1>
 R1>terminal width 511
@@ -24,6 +24,7 @@ R1(config-if-Lo0)#!
 R1(config-if-Lo0)#router bgp 64497
 R1(config-router-bgp)#  router-id 0.0.0.1
 R1(config-router-bgp)#  bgp default ipv6-unicast
+R1(config-router-bgp)#  redistribute connected
 R1(config-router-bgp)#  neighbor fe80::2%Et1 remote-as 64496
 R1(config-router-bgp)#  neighbor fe80::2%Et1 maximum-routes 12000
 R1(config-router-bgp)#  network 2001:db8:0:40::/64

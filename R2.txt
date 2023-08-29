@@ -5,10 +5,14 @@ interface Ethernet2
 interface Ethernet3
    no switchport
    ipv6 address fe80::3/64 link-local
+interface Loopback0
+   no switchport
+   ipv6 address 2001:db8:0:41::1/64
 !
 router bgp 64496
   router-id 0.0.1.1
   bgp default ipv6-unicast
+  redistribute connected
   neighbor fe80::1%Et2 remote-as 64497
   neighbor fe80::1%Et2 maximum-routes 12000
   neighbor fe80::4%Et3 remote-as 64498

@@ -9,6 +9,7 @@ interface Loopback0
 router bgp 64497
   router-id 0.0.0.1
   bgp default ipv6-unicast
+  redistribute connected
   neighbor fe80::2%Et1 remote-as 64496
   neighbor fe80::2%Et1 maximum-routes 12000
   network 2001:db8:0:40::/64
