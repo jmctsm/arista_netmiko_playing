@@ -1,0 +1,32 @@
+hostname {{ HOSTNAME }}
+
+{% for interface in HOST_DICT.interfaces %}
+interface {{ interface.name }}
+   no switchport
+   {% if interface.ipv4_address %}
+   ip address {{ interface.ipv4_address }}
+   {% endif %}
+   {% if interface.ipv6_address %}
+   ipv6 address {{ interface.ipv6_address }}
+   {% endif %}
+   {% if interface.ipv6_link_local_address %}
+   ipv6 address {{ interface.ipv6_link_local_address }} link-local
+   {% endif %}
+{% endfor%}
+!
+
+router bgp {{ HOST_DICT.bgp.asn }}
+  router-id {{ HOST_DICT.bgp.router_id }}
+  bgp default ipv6-unicast
+  {% for neighbor in HOST_DICT.bgp.neighbors %}
+  {% if neighbor.link_local %}
+  neighbor {{ neighbor.address}}%{{ neighbor.interface }} remote-as {{ neighbor.remote_asn }}
+  neighbor {{ neighbor.address}}%{{ neighbor.interface }} maximum-routes 12000
+  {% else %}
+  neighbor {{ neighbor.address}} remote-as {{ neighbor.remote_asn }}
+  neighbor {{ neighbor.address}} maximum-routes 12000
+  {% endif%}
+  {% endfor %}
+  {% for network in HOST_DICT.bgp.networks %}
+  network {{ network }}
+  {% endfor %}

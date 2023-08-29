@@ -1,0 +1,25 @@
+
+Last login: Tue Aug 29 19:58:01 2023 from 192.168.69.6
+
+R1>
+R1>terminal width 511
+Width set to 511 columns.
+R1>terminal length 0
+Pagination disabled.
+R1>
+R1>
+R1>enable
+R1#
+R1#show ip int brief
+                                                                                 Address 
+Interface         IP Address              Status       Protocol           MTU    Owner   
+----------------- ----------------------- ------------ -------------- ---------- ------- 
+Ethernet1         unassigned              up           up                1500            
+Ethernet2         unassigned              up           up                1500            
+Ethernet3         unassigned              up           up                1500            
+Ethernet4         unassigned              up           up                1500            
+Ethernet5         unassigned              up           up                1500            
+Ethernet100       unassigned              up           up                1500            
+Management1       192.168.69.201/24       up           up                1500            
+
+R1#

@@ -1,0 +1,38 @@
+
+Last login: Tue Aug 29 21:35:09 2023 from 192.168.69.6
+
+R1>
+R1>terminal width 511
+Width set to 511 columns.
+R1>terminal length 0
+Pagination disabled.
+R1>
+R1>
+R1>enable
+R1#
+R1#configure terminal
+R1(config)#
+R1(config)#hostname R1
+R1(config)#interface Ethernet1
+R1(config-if-Et1)#   no switchport
+R1(config-if-Et1)#   ipv6 address fe80::1/64 link-local
+R1(config-if-Et1)#interface Loopback0
+R1(config-if-Lo0)#   no switchport
+% Incomplete command
+R1(config-if-Lo0)#   ipv6 address 2001:db8:0:40::1/64
+R1(config-if-Lo0)#!
+R1(config-if-Lo0)#router bgp 64497
+R1(config-router-bgp)#  router-id 0.0.0.1
+R1(config-router-bgp)#  bgp default ipv6-unicast
+R1(config-router-bgp)#  neighbor fe80::2%Et1 remote-as 64496
+R1(config-router-bgp)#  neighbor fe80::2%Et1 maximum-routes 12000
+R1(config-router-bgp)#  network 2001:db8:0:40::/64
+R1(config-router-bgp)#
+R1(config-router-bgp)#end
+R1#
+R1#
+R1#
+R1#copy running-config startup-config
+Copy completed successfully.
+R1#
+R1#exit

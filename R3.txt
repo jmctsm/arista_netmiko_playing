@@ -1,0 +1,11 @@
+hostname R3
+interface Ethernet1
+   no switchport
+   ipv6 address fe80::4/64 link-local
+!
+router bgp 64498
+  router-id 0.0.2.1
+  bgp default ipv6-unicast
+  neighbor fe80::3%Et1 remote-as 64496
+  neighbor fe80::3%Et1 maximum-routes 12000
+  network 2001:db8:0:42::/64

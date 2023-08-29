@@ -1,0 +1,69 @@
+---
+configure: True
+devices:
+  R1: 
+    management_ip: 192.168.69.201
+    username: admin
+    interfaces:
+      - name: Ethernet1
+        ipv6_link_local_address: fe80::1/64
+        ipv4_address: False
+        ipv6_address: False
+      - name: Loopback0
+        ipv6_link_local_address: False
+        ipv4_address: False
+        ipv6_address: 2001:db8:0:40::1/64
+    bgp:
+      asn: 64497
+      router_id: 0.0.0.1
+      neighbors: 
+        - address: fe80::2
+          remote_asn: 64496
+          link_local: True
+          interface: Et1
+      networks:
+        - 2001:db8:0:40::/64
+  R2:
+    management_ip: 192.168.69.202
+    username: admin
+    interfaces:
+      - name: Ethernet2
+        ipv6_link_local_address: fe80::2/64
+        ipv4_address: False
+        ipv6_address: False
+      - name: Ethernet3
+        ipv6_link_local_address: fe80::3/64
+        ipv4_address: False
+        ipv6_address: False
+    bgp:
+      asn: 64496
+      router_id: 0.0.1.1
+      neighbors: 
+        - address: fe80::1
+          remote_asn: 64497
+          link_local: True
+          interface: Et2
+        - address: fe80::4
+          remote_asn: 64498
+          link_local: True
+          interface: Et3
+      networks:
+        - 2001:db8:0:41::/64
+  R3: 
+    management_ip: 192.168.69.203
+    username: admin
+    interfaces:
+      - name: Ethernet1
+        ipv6_link_local_address: fe80::4/64
+        ipv4_address: False
+        ipv6_address: False
+    bgp:
+      asn: 64498
+      router_id: 0.0.2.1
+      neighbors: 
+        - address: fe80::3
+          remote_asn: 64496
+          link_local: True
+          interface: Et1
+      networks:
+        - 2001:db8:0:42::/64
