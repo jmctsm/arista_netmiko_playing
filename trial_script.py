@@ -6,8 +6,19 @@ import jinja2
 
 
 def make_config_file(hostname: str, host_info: dict) -> str:
+    """
+    Render a configuration file template with the provided hostname and host_info.
+    Process the configuration lines to remove empty lines and unnecessary whitespace.
+    Write the processed configuration lines to a file with the hostname as the filename.
+    Return the filename of the generated configuration file.
+    """
+    # Create a Jinja2 environment with the current directory as the template loader
     jinja_environment = jinja2.Environment(loader=jinja2.FileSystemLoader("."))
+
+    # Load the template file named "template.j2" from the Jinja2 environment
     jinja_template = jinja_environment.get_template("template.j2")
+
+    # Render the template with the provided hostname and host_info as variables
     raw_config_lines = jinja_template.render(HOSTNAME=hostname, HOST_DICT=host_info)
     proccessed_config_lines = []
     for line in raw_config_lines.split("\n"):
@@ -17,6 +28,8 @@ def make_config_file(hostname: str, host_info: dict) -> str:
     with open(output_filename, "w") as output_file:
         for line in proccessed_config_lines:
             output_file.write(f"{ line }\n")
+
+    # Return the filename of the generated configuration file
     return output_filename
 
 
@@ -25,7 +38,20 @@ def configure_device(
     mgmt_ip: str,
     config_file: str,
     password: str,
-) -> None:
+) -> bool:
+    """
+    Configures a network device using Netmiko library.
+
+    Args:
+        host (str): The hostname of the network device.
+        mgmt_ip (str): The management IP address of the network device.
+        config_file (str): The path to the configuration file
+            containing the commands to be sent to the device.
+        password (str): The password for authentication.
+
+    Returns:
+        bool: True if the configuration process is successful, False otherwise.
+    """
     arista_vEOS = {
         "device_type": "arista_eos",
         "ip": mgmt_ip,
@@ -47,6 +73,17 @@ def configure_device(
 
 
 def main(yaml_input_file: str, admin_password: str) -> None:
+    """
+    Reads a YAML input file, generates configuration files for each device
+    specified in the input, and configures the devices using Netmiko library.
+
+    Args:
+        yaml_input_file (str): The path to the YAML input file.
+        admin_password (str): The password for authentication.
+
+    Returns:
+        None
+    """
     try:
         with open(yaml_input_file, "r") as yaml_file:
             input_dictionary = yaml.safe_load(yaml_file)
